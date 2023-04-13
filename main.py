@@ -1,5 +1,4 @@
 import pandas
-import pprint
 import datetime
 import collections
 from http.server import HTTPServer
@@ -16,7 +15,7 @@ def get_year_tizer(year):
 
 def calulate_winery_age():
     """Calculate winery age"""
-    age = (datetime.date.today().year - 1920) 
+    age = (datetime.date.today().year - 1920)
     age_string = get_year_tizer(age)
     return age, age_string
 
@@ -33,7 +32,7 @@ def load_categories_wine_rows(file_name='wine3.xlsx'):
     """Transform excel table to the list of dictionaries"""
     wine_raw_data = pandas.read_excel(file_name, na_filter=False)
     wine_records = wine_raw_data.to_dict(orient='records')
-    
+
     total_wine_dict = collections.defaultdict(list)
     for wine_record in wine_records:
         category = wine_record['Категория']
@@ -43,8 +42,7 @@ def load_categories_wine_rows(file_name='wine3.xlsx'):
                                               Сорт=wine_record['Сорт'],
                                               Цена=wine_record['Цена'],
                                               Акция=wine_record['Акция']
-                                              )
-                                        )
+                                              ))
     return total_wine_dict.items()
 
 
@@ -55,7 +53,7 @@ def main():
         autoescape=select_autoescape(['html', 'xml'])
     )
     template = env.get_template('template.html')
-    winery_age, age_tizer = calulate_winery_age()    
+    winery_age, age_tizer = calulate_winery_age()
     wine_categories_rows = load_categories_wine_rows()
 
     rendered_page = template.render(wine_categories_rows=wine_categories_rows,
@@ -69,5 +67,5 @@ def main():
     server.serve_forever()
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

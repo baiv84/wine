@@ -1,3 +1,4 @@
+import pandas
 import datetime
 from http.server import HTTPServer
 from http.server import SimpleHTTPRequestHandler
@@ -18,6 +19,14 @@ def calulate_winery_age():
     return age, age_string
 
 
+def load_wine_rows(file_name='wine.xlsx'):
+    """Transform excel table to the list of dictionaries"""
+    excel_data_df = pandas.read_excel(file_name, usecols=['Название', 'Сорт',
+                                                          'Цена', 'Картинка'])
+    wine_excel_rows = excel_data_df.to_dict(orient='records')
+    return wine_excel_rows
+
+
 def main():
     """Program entry point"""
     env = Environment(
@@ -28,10 +37,11 @@ def main():
     template = env.get_template('template.html')
     winery_age, age_tizer = calulate_winery_age()
     
-    rendered_page = template.render(
-        winery_age = winery_age,
-        age_tizer = age_tizer
-    )
+    wine_rows = load_wine_rows()
+    rendered_page = template.render(wine_rows=wine_rows,
+                                    winery_age=winery_age,
+                                    age_tizer=age_tizer)
+
     with open('index.html', 'w', encoding="utf8") as file:
         file.write(rendered_page)
 

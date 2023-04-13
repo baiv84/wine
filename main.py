@@ -1,4 +1,5 @@
 import pandas
+import pprint
 import datetime
 from http.server import HTTPServer
 from http.server import SimpleHTTPRequestHandler
@@ -27,6 +28,28 @@ def load_wine_rows(file_name='wine.xlsx'):
     return wine_excel_rows
 
 
+def load_categories_wine_rows(file_name='wine2.xlsx'):
+    """Transform excel table to the list of dictionaries"""
+    wine_raw_data = pandas.read_excel(file_name, na_filter=False)
+    wine_records = wine_raw_data.to_dict(orient='records')
+    
+    total_wine_dict = {}
+    for wine_record in wine_records:
+        category = wine_record['Категория']
+        if category not in total_wine_dict:
+            total_wine_dict[category] = [dict(Картинка=wine_record['Картинка'],
+                                              Категория=category,
+                                              Название=wine_record['Название'],
+                                              Сорт=wine_record['Сорт'],
+                                              Цена=wine_record['Цена']),
+                                        ]
+        else:
+            wine_category_list = total_wine_dict[category]
+            wine_category_list.append(wine_record)
+            total_wine_dict[category] = wine_category_list
+    return total_wine_dict
+
+
 def main():
     """Program entry point"""
     env = Environment(
@@ -50,4 +73,7 @@ def main():
 
 
 if __name__=='__main__':
-    main()
+    #main()
+    pp = pprint.PrettyPrinter(width=71, compact=True)
+    pp.pprint(load_categories_wine_rows())
+

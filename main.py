@@ -1,6 +1,7 @@
 import pandas
 import pprint
 import datetime
+import collections
 from http.server import HTTPServer
 from http.server import SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -28,26 +29,23 @@ def load_wine_rows(file_name='wine.xlsx'):
     return wine_excel_rows
 
 
-def load_categories_wine_rows(file_name='wine2.xlsx'):
+def load_categories_wine_rows(file_name='wine3.xlsx'):
     """Transform excel table to the list of dictionaries"""
     wine_raw_data = pandas.read_excel(file_name, na_filter=False)
     wine_records = wine_raw_data.to_dict(orient='records')
     
-    total_wine_dict = {}
+    total_wine_dict = collections.defaultdict(list)
     for wine_record in wine_records:
         category = wine_record['Категория']
-        if category not in total_wine_dict:
-            total_wine_dict[category] = [dict(Картинка=wine_record['Картинка'],
+        total_wine_dict[category].append(dict(Картинка=wine_record['Картинка'],
                                               Категория=category,
                                               Название=wine_record['Название'],
                                               Сорт=wine_record['Сорт'],
-                                              Цена=wine_record['Цена']),
-                                        ]
-        else:
-            wine_category_list = total_wine_dict[category]
-            wine_category_list.append(wine_record)
-            total_wine_dict[category] = wine_category_list
-    return total_wine_dict
+                                              Цена=wine_record['Цена'],
+                                              Акция=wine_record['Акция']
+                                              )
+                                        )
+    return total_wine_dict.items()
 
 
 def main():
@@ -56,12 +54,11 @@ def main():
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
     )
-
     template = env.get_template('template.html')
-    winery_age, age_tizer = calulate_winery_age()
-    
-    wine_rows = load_wine_rows()
-    rendered_page = template.render(wine_rows=wine_rows,
+    winery_age, age_tizer = calulate_winery_age()    
+    wine_categories_rows = load_categories_wine_rows()
+
+    rendered_page = template.render(wine_categories_rows=wine_categories_rows,
                                     winery_age=winery_age,
                                     age_tizer=age_tizer)
 
@@ -73,7 +70,4 @@ def main():
 
 
 if __name__=='__main__':
-    #main()
-    pp = pprint.PrettyPrinter(width=71, compact=True)
-    pp.pprint(load_categories_wine_rows())
-
+    main()

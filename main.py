@@ -28,7 +28,7 @@ def load_wine_rows(file_name='wine.xlsx'):
     return wine_excel_rows
 
 
-def load_categories_wine_rows(file_name='wine3.xlsx'):
+def load_wine_categories_rows(file_name='wine.xlsx'):
     """Transform excel table to the list of dictionaries"""
     wine_raw_data = pandas.read_excel(file_name, na_filter=False)
     wine_records = wine_raw_data.to_dict(orient='records')
@@ -54,7 +54,7 @@ def main():
     )
     template = env.get_template('template.html')
     winery_age, age_tizer = calulate_winery_age()
-    wine_categories_rows = load_categories_wine_rows()
+    wine_categories_rows = load_wine_categories_rows(file_name='wine3.xlsx')
 
     rendered_page = template.render(wine_categories_rows=wine_categories_rows,
                                     winery_age=winery_age,

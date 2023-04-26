@@ -112,28 +112,28 @@
           </div>
         </div>
         
-        {% for categ, data_rows in wine_categories_rows %}
+        {% for wine_category, wine_category_items in wine_database_items %}
             <div class="row">
               <div class="col-12 section-title text-center mb-5">
-                <h2 class="d-block">{{ categ }}</h2>
+                <h2 class="d-block">{{ wine_category }}</h2>
               </div>
             </div>
           
             <div class="row">
-            {% for data_row in data_rows %}
+            {% for wine_category_item in wine_category_items %}
             <div class="col-lg-4 mb-5 col-md-6">
               <div class="wine_v_1 text-center pb-4 pt-5">
-                <img src="images/{{ data_row.Картинка }}" alt="Image" class="img-fluid">
-                {% if data_row.Акция %}
+                <img src="images/{{ wine_category_item.Картинка }}" alt="Image" class="img-fluid">
+                {% if wine_category_item.Акция %}
                     <img src="assets/profitable.png" style="width:10rem;height: 10rem;position:absolute;right: -20px;top: -20px;">
                 {% endif%}
                     <div>
-                  <h3 class="heading mt-3 mb-3 text-dark">{{ data_row.Название }}</h3>
+                  <h3 class="heading mt-3 mb-3 text-dark">{{ wine_category_item.Название }}</h3>
                   <p>
-                  {% if data_row.Сорт %}
-                        Сорт винограда - {{ data_row.Сорт }}<br/>
+                  {% if wine_category_item.Сорт %}
+                        Сорт винограда - {{ wine_category_item.Сорт }}<br/>
                   {% endif %}
-                  <span class="price">{{ data_row.Цена }} р.</span>
+                  <span class="price">{{ wine_category_item.Цена }} р.</span>
                   </p>
                 </div>
               </div>

@@ -1,11 +1,11 @@
-import os
 import pandas
 import datetime
 import collections
+from environs import Env
 from http.server import HTTPServer
 from http.server import SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-from dotenv import load_dotenv
+
 
 WINERY_FOUNDATION_YEAR = 1920
 
@@ -51,12 +51,9 @@ def load_wine_by_categories(file_name='wine.xlsx'):
 
 def main():
     """Program entry point"""
-    dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-    if not os.path.exists(dotenv_path):
-        raise
-
-    load_dotenv(dotenv_path)
-    datafile = os.environ.get("DATAFILE")
+    project_env = Env()
+    project_env.read_env()
+    datafile = project_env("DATAFILE", "example.xlsx")
 
     env = Environment(
         loader=FileSystemLoader('.'),

@@ -2,15 +2,32 @@
 
 Exclusive crimean wine online shop.
 
-# Prerequisites
+# Prepare database file
 
-Firstly, you have to install package `python3-venv` to work with python virtual environment.
+Firstly, you have to prepare database file to load wine data.
+
+Repository includes example database file: `example.xlsx`.
+
+By default, program uses this file to load winery information.
+
+If you wish to use your own database - copy `example.xlsx` to the new file: `mydatabase.xlsx`.
+
+Then, create project environment file `.env` and add string, like this: 
+
+```console
+DATAFILE=mydatabase.xlsx
+```
+Fill database file `mydatabase.xlsx` with your own winery data.
+
+
+# Prepare virtual environment
+
+Next step, it is time to install package `python3-venv` to work with python virtual environment.
 
 Update packages on your system `!(it depends on your operating system)`
-
 in this document I use Ubuntu as my operating system. 
 
-So run update:
+So I run update command:
 
 ```console
 $ sudo apt update

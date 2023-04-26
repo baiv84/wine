@@ -5,6 +5,7 @@ from http.server import HTTPServer
 from http.server import SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+WINERY_FOUNDATION_YEAR = 1920
 
 def get_year_tizer(year):
     """Calculate year tizer"""
@@ -15,7 +16,7 @@ def get_year_tizer(year):
 
 def calulate_winery_age():
     """Calculate winery age"""
-    age = (datetime.date.today().year - 1920)
+    age = (datetime.date.today().year - WINERY_FOUNDATION_YEAR)
     age_string = get_year_tizer(age)
     return age, age_string
 

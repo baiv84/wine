@@ -57,8 +57,9 @@ This command installs all necessary libraries into the project virtual environme
 # Run program 
 
 To run site, execute command:
-
+```console
   (venv) wine  $ python3 main.py
+```
 
 # Control results
 

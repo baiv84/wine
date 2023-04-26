@@ -34,17 +34,17 @@ def load_wine_categories_rows(file_name='wine.xlsx'):
     wine_raw_data = pandas.read_excel(file_name, na_filter=False)
     wine_records = wine_raw_data.to_dict(orient='records')
 
-    total_wine_dict = collections.defaultdict(list)
+    wine_database = collections.defaultdict(list)
     for wine_record in wine_records:
         category = wine_record['Категория']
-        total_wine_dict[category].append(dict(Картинка=wine_record['Картинка'],
+        wine_database[category].append(dict(Картинка=wine_record['Картинка'],
                                               Категория=category,
                                               Название=wine_record['Название'],
                                               Сорт=wine_record['Сорт'],
                                               Цена=wine_record['Цена'],
                                               Акция=wine_record['Акция']
                                               ))
-    return total_wine_dict.items()
+    return wine_database.items()
 
 
 def main():

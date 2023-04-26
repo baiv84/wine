@@ -54,7 +54,7 @@ def main():
     )
     template = env.get_template('template.html')
     winery_age, age_tizer = calulate_winery_age()
-    wine_categories_rows = load_wine_categories_rows(file_name='wine3.xlsx')
+    wine_categories_rows = load_wine_categories_rows(file_name='database.xlsx')
 
     rendered_page = template.render(wine_categories_rows=wine_categories_rows,
                                     winery_age=winery_age,

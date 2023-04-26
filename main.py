@@ -23,15 +23,7 @@ def calulate_winery_age():
     return winery_age
 
 
-def load_wine_rows(file_name='wine.xlsx'):
-    """Transform excel table to the list of dictionaries"""
-    excel_data_df = pandas.read_excel(file_name, usecols=['Название', 'Сорт',
-                                                          'Цена', 'Картинка'])
-    wine_excel_rows = excel_data_df.to_dict(orient='records')
-    return wine_excel_rows
-
-
-def load_wine_by_categories(file_name='wine.xlsx'):
+def load_wine_by_categories(file_name='example.xlsx'):
     """Transform excel table to the list of dictionaries"""
     wine_raw_data = pandas.read_excel(file_name, na_filter=False)
     wine_records = wine_raw_data.to_dict(orient='records')
@@ -53,7 +45,7 @@ def main():
     """Program entry point"""
     project_env = Env()
     project_env.read_env()
-    datafile = project_env("DATAFILE", "example.xlsx")
+    datafile = project_env('DATAFILE', 'example.xlsx')
 
     env = Environment(
         loader=FileSystemLoader('.'),
@@ -68,7 +60,7 @@ def main():
                                     winery_age=winery_age,
                                     age_tizer=winery_age_tizer)
 
-    with open('index.html', 'w', encoding="utf8") as file:
+    with open('index.html', 'w', encoding='utf8') as file:
         file.write(rendered_page)
 
     server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)

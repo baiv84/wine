@@ -17,12 +17,6 @@ def get_year_tizer(year):
     return tizers[(k == 1) + (1 <= k <= 4)]
 
 
-def calulate_winery_age():
-    """Calculate winery age"""
-    winery_age = (datetime.date.today().year - WINERY_FOUNDATION_YEAR)
-    return winery_age
-
-
 def load_wine_by_categories(file_name='example.xlsx'):
     """Transform excel table to the list of dictionaries"""
     wine_raw_data = pandas.read_excel(file_name, na_filter=False)
@@ -45,16 +39,16 @@ def main():
     """Program entry point"""
     project_env = Env()
     project_env.read_env()
-    datafile = project_env('DATAFILE', 'example.xlsx')
+    wines_file_name = project_env('DATAFILE', 'example.xlsx')
 
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
     )
     template = env.get_template('template.html')
-    winery_age = calulate_winery_age()
+    winery_age = (datetime.date.today().year - WINERY_FOUNDATION_YEAR)
     winery_age_tizer = get_year_tizer(winery_age)
-    wine_database = load_wine_by_categories(file_name=datafile)
+    wine_database = load_wine_by_categories(file_name=wines_file_name)
 
     rendered_page = template.render(wine_database=wine_database,
                                     winery_age=winery_age,

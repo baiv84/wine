@@ -39,7 +39,7 @@ def main():
     """Program entry point"""
     project_env = Env()
     project_env.read_env()
-    wines_file_name = project_env('DATAFILE', 'example.xlsx')
+    wines_file_name = project_env('WINES_FILE_NAME', 'example.xlsx')
 
     env = Environment(
         loader=FileSystemLoader('.'),

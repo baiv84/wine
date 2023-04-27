@@ -15,7 +15,7 @@ If you wish to use your own database - copy `example.xlsx` to the new file: `myd
 Then, create project environment file `.env` and add string, like this: 
 
 ```console
-DATAFILE=mydatabase.xlsx
+WINES_FILE_NAME=mydatabase.xlsx
 ```
 Fill database file `mydatabase.xlsx` with your own winery data.
 

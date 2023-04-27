@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 
-<head>
-  
+<head>  
   <title>Wines</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,9 +9,7 @@
 
   <!-- escape | in url query with %7C . See more https://developer.donnoval.ru/w3cvalidation/ -->
   <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:600%7CMontserrat&amp;display=swap" rel="stylesheet"> 
-
   <link rel="stylesheet" href="fonts/icomoon/style.css">
-
   <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
   <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/owl.carousel.min.css">
@@ -26,7 +23,6 @@
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
   <div class="site-wrap">
-
     <div class="site-mobile-menu site-navbar-target">
       <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close mt-3">
@@ -36,8 +32,6 @@
       <div class="site-mobile-menu-body"></div>
     </div>
 
-
-    
     <div class="header-top">
       <div class="container">
         <div class="d-flex">
@@ -52,15 +46,11 @@
             </a>
           </div>
         </div>
-
-
       </div>
       
       <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-md-block" role="banner">
-
         <div class="container">
           <div class="d-flex align-items-center">
-            
             <div class="mx-auto">
               <nav class="site-navigation position-relative text-left">
                 <ul class="site-menu main-menu js-clone-nav mx-auto d-none pl-0 d-md-block border-none">
@@ -72,12 +62,9 @@
               </nav>
 
             </div>
-           
           </div>
         </div>
-
       </div>
-    
     </div>
 
     
@@ -112,7 +99,7 @@
           </div>
         </div>
         
-        {% for wine_category, wine_category_items in wine_database %}
+        {% for wine_category, wines_by_category in wine_database %}
             <div class="row">
               <div class="col-12 section-title text-center mb-5">
                 <h2 class="d-block">{{ wine_category }}</h2>
@@ -120,20 +107,20 @@
             </div>
           
             <div class="row">
-            {% for wine_category_item in wine_category_items %}
+            {% for wine in wines_by_category %}
             <div class="col-lg-4 mb-5 col-md-6">
               <div class="wine_v_1 text-center pb-4 pt-5">
-                <img src="images/{{ wine_category_item.Картинка }}" alt="Image" class="img-fluid">
-                {% if wine_category_item.Акция %}
+                <img src="images/{{ wine.Картинка }}" alt="Image" class="img-fluid">
+                {% if wine.Акция %}
                     <img src="assets/profitable.png" style="width:10rem;height: 10rem;position:absolute;right: -20px;top: -20px;">
                 {% endif%}
                     <div>
-                  <h3 class="heading mt-3 mb-3 text-dark">{{ wine_category_item.Название }}</h3>
+                  <h3 class="heading mt-3 mb-3 text-dark">{{ wine.Название }}</h3>
                   <p>
-                  {% if wine_category_item.Сорт %}
-                        Сорт винограда - {{ wine_category_item.Сорт }}<br/>
+                  {% if wine.Сорт %}
+                        Сорт винограда - {{ wine.Сорт }}<br/>
                   {% endif %}
-                  <span class="price">{{ wine_category_item.Цена }} р.</span>
+                  <span class="price">{{ wine.Цена }} р.</span>
                   </p>
                 </div>
               </div>
@@ -161,7 +148,6 @@
     <div class="site-section bg-light">
       <div class="container">
         <div class="owl-carousel owl-slide-3 owl-slide">
-        
           <blockquote class="testimony">
             <img src="assets/person_1.jpg" alt="Фото">
             <p>&ldquo;Если бы вино Киндзмараули вдруг стало мужчиной, то это был бы средних лет (35-40 лет) аристократичный мужчина, в белой дорогой рубашке и брюках,
@@ -219,12 +205,9 @@
     
 
   </div>
-  <!-- .site-wrap -->
-
-
+ 
   <!-- loader -->
   <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#ff5e15"/></svg></div>
-
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/jquery-ui.js"></script>
@@ -237,5 +220,4 @@
   <script src="js/main.js"></script>
 
 </body>
-
 </html>
